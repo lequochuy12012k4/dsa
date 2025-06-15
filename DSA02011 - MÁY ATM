@@ -1,78 +1,54 @@
-#include <bits/stdc++.h>
-#define endl "\n"
+// Created by Nguyễn Mạnh Quân
+
+#include<bits/stdc++.h>
+
 using namespace std;
-int n, k, a[35], b[35], ss, mi, ok;
-void Try(int x)
+
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define sz size()
+#define ll long long
+#define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define FORD(i, a, b) for(int i = a; i >= b; i--)
+#define F(i, a, b) for(int i = a; i < b; ++i)
+#define FD(i, a, b) for(int i = a; i > b; --i)
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define vi vector<int>
+#define vll vector<ll>
+#define all(x) (x).begin(), (x).end()
+#define endl '\n'
+
+int b[35], n, s;
+bool flag;
+
+void Try(int i, int cur = 0, int cnt = 0)
 {
-    for (int i = b[x - 1] + 1; i <= n; i++)
+    if(flag) return;
+    if(cur > s) return;
+    if(cur == s)
     {
-        b[x] = i;
-        if (x == k)
-        {
-            int s = 0;
-            for (int j = 1; j <= k; j++)
-                s += a[b[j]];
-            if (s == ss)
-            {
-                ok = 1;
-                mi = k;
-                return;
-            }
-        }
-        else
-            Try(x + 1);
+        flag = 1;
+        cout << cnt << endl;
+        return;
     }
+    for(int j = i; j <= n; ++j) Try(j + 1, cur + b[j], cnt + 1);
 }
+
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int t;
+    faster();
+    int t = 1;
     cin >> t;
-    while (t--)
+    while(t--)
     {
-        a[0] = ok = 0;
-        mi = 50;
-        cin >> n >> ss;
-        for (int i = 1; i <= n; i++)
-            cin >> a[i];
-        for (int i = 1; i <= n; i++)
-        {
-            k = i;
-            Try(1);
-            if (ok == 1)
-                break;
-        }
-        if (ok == 0)
-            cout << -1 << endl;
-        else
-            cout << mi << endl;
+        cin >> n >> s;
+        for(int i = 1; i <= n; ++i) cin >> b[i];
+        sort(b + 1, b + 1 + n, greater<ll>());
+        flag = 0;
+        Try(1);
+        if(!flag) cout << -1 << endl;
     }
+    return 0;
 }
-/* Do Xuan Huong
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@##################@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@#############################@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@&####################################@@@@@@@@@@@@
-@@@@@@@@@@##########################################@@@@@@@@@
-@@@@@@@@##############################################@@@@@@@
-@@@@@@#################################################@@@@@@
-@@@@@####################################################@@@@
-@@@%#####################@@@@@@@@@@@######################@@@
-@@@###################@@@@@@@@@@@@@@@@@####################@@
-@@##################@@@@@@         @@@@@@##################@@
-@@#################@@@@@             @@@@###################@
-@@@@@@@@@@@@@@@@@@@@@@@@             @@@@@@@@@@@@@@@@@@@@@@@@
-@                  &@@@@             @@@@           .......@@
-@@                  @@@@@@         @@@@@@           .......@@
-@@                    @@@@@@@@@@@@@@@@@            .......@@@
-@@@                      @@@@@@@@@@@               ......@@@@
-@@@@                                              ......@@@@@
-@@@@@@                                           ......@@@@@@
-@@@@@@@                                         .....@@@@@@@@
-@@@@@@@@@                                     .....@@@@@@@@@@
-@@@@@@@@@@@@                                ....@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@                         ....@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@%                .@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-*/

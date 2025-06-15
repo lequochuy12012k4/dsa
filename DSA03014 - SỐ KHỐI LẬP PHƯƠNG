@@ -1,74 +1,51 @@
-#include <bits/stdc++.h>
-#define endl "\n"
+// Created by Nguyễn Mạnh Quân
+
+#include<bits/stdc++.h>
+
 using namespace std;
-bool check(string s1, string s2)
+
+#define mp make_pair
+#define fi first
+#define se second
+#define pb push_back
+#define sz size()
+#define ll long long
+#define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define FORD(i, a, b) for(int i = a; i >= b; i--)
+#define F(i, a, b) for(int i = a; i < b; ++i)
+#define FD(i, a, b) for(int i = a; i > b; --i)
+#define faster() ios_base::sync_with_stdio(0); cin.tie(NULL); cout.tie(NULL);
+#define vi vector<int>
+#define vll vector<ll>
+#define all(x) (x).begin(), (x).end()
+#define endl '\n'
+
+vll v;
+
+string calc(string &s)
 {
-    int k = 0;
-    for (int i = 0; i < s1.size(); i++)
+    string tmp;
+    for(ll &i : v)
     {
-        int ok = 0;
-        for (int j = k; j < s2.size(); j++)
-        {
-            if (s1[i] == s2[j])
-            {
-                ok = 1;
-                k = j + 1;
-                break;
-            }
-        }
-        if (!ok)
-            return 0;
+        tmp = to_string(i);
+        int idx = 0;
+        for(char &j : s) if(j == tmp[idx]) ++idx;
+        if(idx == tmp.sz) return tmp;
     }
-    return 1;
+    return to_string(-1);
 }
+
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(0);
-    int t;
+    faster();
+    int t = 1;
     cin >> t;
-    vector<string> f;
-    for (long long i = 1; i <= 50; i++)
-        f.push_back(to_string(i * i * i));
-    while (t--)
+    for(int i = 1e2; i; --i) v.pb(i * i * i);
+    string s;
+    while(t--)
     {
-        string s, ans = "-1";
         cin >> s;
-        for (int i = f.size() - 1; i >= 0; i--)
-        {
-            if ((f[i].size() < s.size() || f[i] < s) && check(f[i], s))
-            {
-                ans = f[i];
-                break;
-            }
-        }
-        cout << ans << endl;
+        cout << calc(s) << endl;
     }
+    return 0;
 }
-/* Do Xuan Huong
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@##################@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@#############################@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@&####################################@@@@@@@@@@@@
-@@@@@@@@@@##########################################@@@@@@@@@
-@@@@@@@@##############################################@@@@@@@
-@@@@@@#################################################@@@@@@
-@@@@@####################################################@@@@
-@@@%#####################@@@@@@@@@@@######################@@@
-@@@###################@@@@@@@@@@@@@@@@@####################@@
-@@##################@@@@@@         @@@@@@##################@@
-@@#################@@@@@             @@@@###################@
-@@@@@@@@@@@@@@@@@@@@@@@@             @@@@@@@@@@@@@@@@@@@@@@@@
-@                  &@@@@             @@@@           .......@@
-@@                  @@@@@@         @@@@@@           .......@@
-@@                    @@@@@@@@@@@@@@@@@            .......@@@
-@@@                      @@@@@@@@@@@               ......@@@@
-@@@@                                              ......@@@@@
-@@@@@@                                           ......@@@@@@
-@@@@@@@                                         .....@@@@@@@@
-@@@@@@@@@                                     .....@@@@@@@@@@
-@@@@@@@@@@@@                                ....@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@                         ....@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@%                .@@@@@@@@@@@@@@@@@@@@@@
-@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-*/
