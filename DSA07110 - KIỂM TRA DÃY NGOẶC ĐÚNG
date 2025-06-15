@@ -1,33 +1,48 @@
-// https://code.ptit.edu.vn/student/question/DSA07110
-// KIỂM TRA DÃY NGOẶC ĐÚNG
-
 #include <bits/stdc++.h>
-using namespace std;
 
-void testCase() {
-    string s; cin >> s;
-    stack<int> st;
-    for (int i = 0; i < s.length(); ++i) {
-        if (s[i] == ')' && !st.empty() && s[st.top()] == '(')
-            st.pop();
-        else if (s[i] == ']' && !st.empty() && s[st.top()] == '[')
-            st.pop();
-        else if (s[i] == '}' && !st.empty() && s[st.top()] == '{')
-            st.pop();
-        else
-            st.push(i);
-    }
-    cout << (st.empty() ? "YES" : "NO");
+using namespace std;
+void FileIO(){
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
 }
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
 
-    int T = 1; cin >> T;
-    while (T--) {
-        testCase();
-        cout << "\n";
-    }
-    return 0;
+
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+	int t; cin >> t; 
+	cin.ignore();
+	while(t--){
+		string str; getline(cin, str);
+		stack <char> stk;
+		bool ok = true;
+		for(int i = 0; i < str.size(); i ++){
+			if(str[i] == '{' || str[i] == '[' || str[i]=='(') 
+				stk.push(str[i]);
+			else if(str[i]=='}'){
+				if(stk.empty()) ok = false;
+				else if(stk.top()=='{') stk.pop();
+				
+			}
+			else if(str[i]==']'){
+				if(stk.empty()) ok = false;
+				else if(stk.top()=='[') stk.pop();
+			}
+			else if(str[i]==')'){
+				if(stk.empty()) ok = false;
+				else if(stk.top()=='(') stk.pop();
+			}
+		}
+		if(stk.size() > 0) 
+			ok = false;
+		if(ok) 
+			cout << "YES" << endl;
+		else 
+			cout << "NO" << endl;
+	}
+	return 0;
 }

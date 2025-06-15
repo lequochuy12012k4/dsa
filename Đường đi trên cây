@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void dfs(const vector<int>& tree, int index, vector<int> path, vector<string>& results) {
+    int n = tree.size();
+    if (index >= n || tree[index] == -1) return;
+
+    path.push_back(tree[index]);
+
+    int left = 2 * index + 1;
+    int right = 2 * index + 2;
+
+    bool isLeaf = (left >= n || tree[left] == -1) && (right >= n || tree[right] == -1);
+
+    if (isLeaf) {
+        // Lưu kết quả thành chuỗi
+        string pathStr = to_string(path[0]);
+        for (int i = 1; i < path.size(); i++) {
+            pathStr += "->" + to_string(path[i]);
+        }
+        results.push_back(pathStr);
+        return;
+    }
+
+    dfs(tree, left, path, results);
+    dfs(tree, right, path, results);
+}
+
+int main() {
+    int t; // số lượng test
+    cin >> t;
+
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> tree(n);
+
+        for (int i = 0; i < n; ++i) {
+            cin >> tree[i];
+        }
+
+        vector<string> results;
+        dfs(tree, 0, {}, results);
+
+        if (results.empty()) {
+            cout << "0\n";
+        } else {
+            for (const string& s : results) {
+                cout << s << "\n";
+            }
+        }
+    }
+
+    return 0;
+}

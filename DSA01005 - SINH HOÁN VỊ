@@ -1,46 +1,41 @@
-// https://code.ptit.edu.vn/student/question/DSA01005
-// SINH HOÁN VỊ
+#include <iostream>
+#include <vector>
 
-#include <bits/stdc++.h>
 using namespace std;
 
-int n;
-vector<int> a, b;
-
-void solve() {
-    for (int i = 1; i <= n; ++i) {
-        cout << a[i];
+void generatePermutations(vector<int>& current, vector<bool>& used, int n) {
+    if (current.size() == n) {
+        for (int i = 0; i < n; i++) {
+            cout << current[i];
+        }
+        cout << " ";
+        return;
     }
-    cout << " ";
-}
 
-void Try(int i) {
-    for (int j = 1; j <= n; ++j) {
-        if (!b[j]) {
-            a[i] = j;
-            b[j] = 1;
-            if (i == n) solve();
-            else Try(i + 1);
-            b[j] = 0;
+    for (int i = 1; i <= n; i++) {
+        if (!used[i]) {
+            current.push_back(i);
+            used[i] = true;
+            generatePermutations(current, used, n);
+            current.pop_back();
+            used[i] = false;
         }
     }
 }
 
-void testCase() {
-    cin >> n;
-    a.resize(n + 1);
-    b.clear(); b.resize(n + 1, 0);
-    Try(1);
-}
-
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    int T;
+    cin >> T;
 
-    int T = 1; cin >> T;
-    while (T--) {
-        testCase();
-        cout << "\n";
+    for (int t = 0; t < T; t++) {
+        int n;
+        cin >> n;
+        vector<int> current;
+        vector<bool> used(n + 1, false);
+
+        generatePermutations(current, used, n);
+        cout << endl;
     }
+
     return 0;
 }
