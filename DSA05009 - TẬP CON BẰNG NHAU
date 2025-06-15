@@ -6,10 +6,10 @@ int a[105];
 string ans;
 void Try(int pos, int k)
 {
-    if (ans == "YES")
+    if (ans == "YES")dadadadaa
         return;
     if (2 * k == s)
-    {
+    {adadd
         ans = "YES";
         return;
     }
